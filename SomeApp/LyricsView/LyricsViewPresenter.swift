@@ -8,25 +8,19 @@
 import Foundation
 
 protocol LyricsViewPresenterProtocol: AnyObject {
-    var song: Song { get }
-    func navigateBack()
+    var song: FetchedSong { get }
     var artistLabel: String { get }
 }
 
 class LyricsViewPresenter: LyricsViewPresenterProtocol {
-    weak var view: (any LyricsViewProtocol)?
-    
-    let song: Song
-    
-    init(view: any LyricsViewProtocol, song: Song) {
-        self.view = view
-        self.song = song
-    }
-    
+    let song: FetchedSong
     lazy var artistLabel = "by \(song.artist)"
     
-    func navigateBack() {
-        NotificationCenter.default.post(name: .windowManager, object: nil, userInfo: [String.windowInfo: WindowCase.search])
+    weak var view: (any LyricsViewProtocol)?
+    
+    init(view: any LyricsViewProtocol, song: FetchedSong) {
+        self.view = view
+        self.song = song
     }
     
 }

@@ -8,10 +8,8 @@
 import Foundation
 
 protocol SearchViewPresenterProtocol: AnyObject {
-    var songs: [Song] { get set }
+    var songs: [FetchedSong] { get set }
     func searchSongs(artist: String?)
-    func navigateBack()
-    func navigateToLyricsView(songIndex: Int)
 }
 
 class SearchViewPresenter: SearchViewPresenterProtocol {
@@ -21,7 +19,7 @@ class SearchViewPresenter: SearchViewPresenterProtocol {
         self.view = view
     }
     
-    var songs: [Song] = []
+    var songs: [FetchedSong] = []
     
     func searchSongs(artist: String?) {
         if !songs.isEmpty {
@@ -47,14 +45,4 @@ class SearchViewPresenter: SearchViewPresenterProtocol {
         }
     }
     
-    func navigateBack() {
-        NotificationCenter.default.post(name: .windowManager, object: nil, userInfo: [String.windowInfo: WindowCase.main])
-    }
-    
-    func navigateToLyricsView(songIndex: Int) {
-        NotificationCenter.default.post(name: .windowManager, object: nil, userInfo: [
-            String.windowInfo: WindowCase.song,
-            "selectedSong": songs[songIndex]
-        ])
-    }
 }

@@ -7,8 +7,8 @@
 
 import UIKit
 
-enum WindowCase {
-    case reg, main, search, song
+enum WindowCase: String {
+    case reg, main
 }
 
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
@@ -28,22 +28,14 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     
     // Обработчик
     @objc func windowManager(notification: Notification) {
-        guard let userInfo = notification.userInfo as? [String: Any], 
-              let window = userInfo[.windowInfo] as? WindowCase else { return }
+        guard let userInfo = notification.userInfo as? [String: WindowCase],
+              let window = userInfo[.windowInfo] else { return }
         
         switch window {
         case .reg:
             self.window?.rootViewController = Builder.createRegistrationView()
         case .main:
             self.window?.rootViewController = Builder.createHomeView()
-        case .search:
-            self.window?.rootViewController = Builder.createSearchView()
-        case .song:
-            if let song = userInfo["selectedSong"] as? Song {  // Safely cast the song
-                self.window?.rootViewController = Builder.createLyricsView(song: song)
-            } else {
-                print("Error: Could not retrieve selected song.")
-            }
         }
     }
 }

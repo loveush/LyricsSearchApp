@@ -7,12 +7,12 @@
 
 import Foundation
 
-struct Song: Codable {
+struct FetchedSong: Decodable {
     let artist: String
     let title: String
     let lyrics: String
 }
 
-struct SongsResponse: Codable {
-    let songs: [Song]
+struct SongsResponse: Decodable {
+    let songs: [FetchedSong]
 }

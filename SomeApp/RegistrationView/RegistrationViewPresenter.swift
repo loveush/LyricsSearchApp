@@ -25,6 +25,7 @@ class RegistrationViewPresenter: RegistrationViewPresenterProtocol {
         }
         
         UserDefaults.standard.set(name, forKey: "name")
+        UserDefaults.standard.set(WindowCase.main.rawValue, forKey: "state")
         NotificationCenter.default.post(name: .windowManager, object: nil, userInfo: [String.windowInfo: WindowCase.main])
 
     }

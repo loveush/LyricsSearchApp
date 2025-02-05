@@ -31,9 +31,10 @@ class Builder {
     }
     
     static func createHomeView() -> UIViewController {
-        return self.createView(viewType: HomeView.self) { view in
+        let homeViewController = self.createView(viewType: HomeView.self) { view in
             HomeViewPresenter(view: view)
         }
+        return UINavigationController(rootViewController: homeViewController)
     }
     
     static func createSearchView() -> UIViewController {
@@ -42,7 +43,7 @@ class Builder {
         }
     }
     
-    static func createLyricsView(song: Song) -> UIViewController {
+    static func createLyricsView(song: FetchedSong) -> UIViewController {
         return self.createView(viewType: LyricsView.self) { view in
             LyricsViewPresenter(view: view, song: song) 
         }

@@ -13,7 +13,7 @@ class NetworkManager {
     
     private let baseURL = "http://localhost:7000"
     
-    func fetchSongs(for artist: String, completion: @escaping ([Song]?) -> Void) {
+    func fetchSongs(for artist: String, completion: @escaping ([FetchedSong]?) -> Void) {
         
         guard let url = URL(string: "http://127.0.0.1:7000/search") else {
             print("Invalid URL")

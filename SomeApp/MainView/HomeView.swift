@@ -26,6 +26,7 @@ class HomeView: UIViewController, HomeViewProtocol {
         view.backgroundColor = .black
 
         setUpView()
+        navigationController?.navigationBar.isHidden = true
     }
 }
 
@@ -34,6 +35,7 @@ private extension HomeView {
     func setUpView() {
         addSubViews()
         setUpLayout()
+        button.addTarget(self, action: #selector(didTapButton), for: .touchUpInside)
     }
 }
 
@@ -42,7 +44,6 @@ private extension HomeView {
     func addSubViews() {
         view.addSubview(titleLabel)
         view.addSubview(button)
-        button.addTarget(self, action: #selector(didTapButton), for: .touchUpInside)
     }
 }
 
@@ -64,6 +65,7 @@ private extension HomeView {
 //MARK: - Button action
 private extension HomeView {
     @objc func didTapButton() {
-        presenter?.navigateToSearchView()
+        let vc = Builder.createSearchView()
+        navigationController?.pushViewController(vc, animated: true)
     }
 }

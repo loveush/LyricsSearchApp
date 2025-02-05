@@ -9,6 +9,7 @@
 import UIKit
 
 class PreviewView: UIViewController {
+    var state: WindowCase = .reg
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -33,7 +34,12 @@ class PreviewView: UIViewController {
         imageView.rotate()
         
         DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-            NotificationCenter.default.post(name: .windowManager, object: nil, userInfo: [String.windowInfo: WindowCase.reg])
+            if let stateRaw = UserDefaults.standard.string(forKey: "state")  {
+                if let state = WindowCase(rawValue: stateRaw) {
+                    self.state = state
+                }
+            }
+            NotificationCenter.default.post(name: .windowManager, object: nil, userInfo: [String.windowInfo: self.state])
         }
     }
 }

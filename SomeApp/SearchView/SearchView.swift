@@ -39,7 +39,7 @@ class SearchView: UIViewController, SearchViewProtocol {
     }()
     let activityIndicator: UIActivityIndicatorView = {
         let indicator = UIActivityIndicatorView(style: .large)
-        indicator.color = .geniusYellow
+        indicator.color = .white
         indicator.hidesWhenStopped = true
         return indicator
     }()
@@ -129,7 +129,10 @@ extension SearchView: UITableViewDataSource{
 
 extension SearchView: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        presenter?.navigateToLyricsView(songIndex: indexPath.row)
+        if let chosenSong = presenter?.songs[indexPath.row] {
+            let lyricsViewController = Builder.createLyricsView(song: chosenSong)
+            navigationController?.pushViewController(lyricsViewController, animated: true)
+        }
     }
 }
 
@@ -142,6 +145,6 @@ private extension SearchView {
 
 private extension SearchView {
     @objc func didTapBackButton() {
-        presenter?.navigateBack()
+        self.navigationController?.popViewController(animated: true)
     }
 }

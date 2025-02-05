@@ -108,6 +108,6 @@ private extension LyricsView {
 
 private extension LyricsView {
     @objc func didTapBackButton() {
-        presenter?.navigateBack()
+        navigationController?.popViewController(animated: true)
     }
 }

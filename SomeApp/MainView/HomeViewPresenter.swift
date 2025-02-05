@@ -9,7 +9,6 @@ import Foundation
 
 protocol HomeViewPresenterProtocol: AnyObject {
     var greeting: String { get }
-    func navigateToSearchView()
 }
 
 class HomeViewPresenter: HomeViewPresenterProtocol {
@@ -21,9 +20,5 @@ class HomeViewPresenter: HomeViewPresenterProtocol {
     
     private let userName = String(UserDefaults.standard.string(forKey: "name") ?? "User")
     lazy var greeting = "Hello, \(userName)!"
-
-    func navigateToSearchView() {
-        NotificationCenter.default.post(name: .windowManager, object: nil, userInfo: [String.windowInfo: WindowCase.search])
-    }
 
 }
