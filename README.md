@@ -1,6 +1,6 @@
 *The app is currently under development.*
 # LyricsSearchApp
-LyricsSearc is an iOS application that allows users to search for song lyrics by entering an artist name. The app fetches matching tracks and displays their lyrics upon selection.
+LyricsSearch is an iOS application that allows users to search for song lyrics by entering an artist name. The app fetches matching tracks and displays their lyrics upon selection.
 ## Tech Stack & Architecture
 - Architecture: Follows the MVP (Model-View-Presenter) pattern for better separation of concerns.
 - UI: Built using UIKit for flexible and dynamic interface design.
