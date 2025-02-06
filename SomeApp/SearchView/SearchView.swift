@@ -139,7 +139,7 @@ extension SearchView: UITableViewDelegate {
 //MARK: - Button actions
 private extension SearchView {
     @objc func didTapSearchButton() {
-        presenter?.searchSongs(artist: searchField.text)
+        presenter?.searchSongs(userInput: searchField.text)
     }
 }
 

@@ -1,5 +1,5 @@
 //
-//  Song.swift
+//  FetchedData.swift
 //  SomeApp
 //
 //  Created by Любовь Ушакова on 25.01.2025.
@@ -8,11 +8,15 @@
 import Foundation
 
 struct FetchedSong: Decodable {
-    let artist: String
     let title: String
-    let lyrics: String
+    let artist: String
+    let id: Int
 }
 
 struct SongsResponse: Decodable {
     let songs: [FetchedSong]
+}
+
+struct FetchedLyrics: Decodable {
+    let lyrics: String
 }
