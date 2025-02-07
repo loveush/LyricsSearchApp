@@ -15,8 +15,16 @@ class SearchView: UIViewController, SearchViewProtocol {
     //MARK: - Presenter
     typealias PresenterType = SearchViewPresenterProtocol
     var presenter: PresenterType?
+
+    //MARK: - Override functions
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        view.backgroundColor = .black
+        
+        setUpView()
+    }
     
-    // MARK: - Private properties
+    // MARK: - View components
     private let titleLabel = CustomTitleLabel(label: "Search lyrics")
     private let searchField = CustomTextField(placeholder: "Enter artist name...")
     private let backButton = CustomBackButton()
@@ -43,14 +51,6 @@ class SearchView: UIViewController, SearchViewProtocol {
         indicator.hidesWhenStopped = true
         return indicator
     }()
-
-    //MARK: - Override functions
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        view.backgroundColor = .black
-        
-        setUpView()
-    }
 }
 
 //MARK: - Setting Views

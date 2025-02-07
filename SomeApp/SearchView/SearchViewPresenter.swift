@@ -22,6 +22,7 @@ class SearchViewPresenter: SearchViewPresenterProtocol {
     
     var songs: [FetchedSong] = []
     
+    // Search songs related to user input
     func searchSongs(userInput: String?) {
         if !songs.isEmpty {
             songs.removeAll()
@@ -33,12 +34,9 @@ class SearchViewPresenter: SearchViewPresenterProtocol {
             return
         }
         
-//        (view as? SearchView)?.activityIndicator.startAnimating()
-        
         NetworkManager.shared.fetchSongs(for: term) { [weak self] songs in
             guard let self = self else { return }
             DispatchQueue.main.async {
-//                (self.view as? SearchView)?.activityIndicator.stopAnimating()
                 
                 self.songs = songs ?? []
                 self.view?.tableView.reloadData()

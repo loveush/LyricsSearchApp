@@ -19,16 +19,16 @@ class LyricsViewPresenter: LyricsViewPresenterProtocol {
     let song: FetchedSong
     var lyrics: String?
     
-    lazy var songID = song.id
-    lazy var artistLabel = "by \(song.artist)"
-    lazy var title = song.title
-    
     weak var view: (any LyricsViewProtocol)?
     
     init(view: any LyricsViewProtocol, song: FetchedSong) {
         self.view = view
         self.song = song
     }
+    
+    lazy var songID = song.id
+    lazy var artistLabel = "by \(song.artist)"
+    lazy var title = song.title
     
     func searchLyrics() {
         view?.activityIndicator.startAnimating()

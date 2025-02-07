@@ -16,10 +16,6 @@ class HomeView: UIViewController, HomeViewProtocol {
     typealias PresenterType = HomeViewPresenterProtocol
     var presenter: PresenterType?
     
-    //MARK: - Private properties
-    private let button = CustomButton(title: "Search lyrics")
-    private lazy var titleLabel = CustomTitleLabel(label: presenter?.greeting ?? "Hello!")
-    
     //MARK: - Override functions
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -28,6 +24,10 @@ class HomeView: UIViewController, HomeViewProtocol {
         setUpView()
         navigationController?.navigationBar.isHidden = true
     }
+    
+    //MARK: - View Components
+    private let button = CustomButton(title: "Search lyrics")
+    private lazy var titleLabel = CustomTitleLabel(label: presenter?.greeting ?? "Hello!")
 }
 
 //MARK: - Setting Views

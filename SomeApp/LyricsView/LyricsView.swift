@@ -17,7 +17,20 @@ class LyricsView: UIViewController, LyricsViewProtocol {
     typealias PresenterType = LyricsViewPresenterProtocol
     var presenter: PresenterType?
     
-    //MARK: - Private properties
+    //MARK: - Override functions
+    
+    override func viewDidAppear(_ animated: Bool) {
+        presenter?.searchLyrics()
+    }
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        view.backgroundColor = .black
+        
+        setUpView()
+    }
+    
+    //MARK: - View components
     private let backButton = CustomBackButton()
     private let titleLabel = CustomTitleLabel(label: "Lyrics")
     
@@ -45,29 +58,15 @@ class LyricsView: UIViewController, LyricsViewProtocol {
         textView.isScrollEnabled = true
         textView.backgroundColor = .clear
         textView.textAlignment = .left
-        textView.isHidden = true 
+        textView.isHidden = true
         return textView
     }()
-    
     lazy var activityIndicator: UIActivityIndicatorView = {
         let indicator = UIActivityIndicatorView(style: .large)
         indicator.color = .white
         indicator.hidesWhenStopped = true
         return indicator
     }()
-    
-    //MARK: - Override functions
-    
-    override func viewDidAppear(_ animated: Bool) {
-        presenter?.searchLyrics()
-    }
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        view.backgroundColor = .black
-        
-        setUpView()
-    }
 }
 
 //MARK: - Setting Views
