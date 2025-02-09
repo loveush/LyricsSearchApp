@@ -8,8 +8,9 @@
 import UIKit
 
 protocol LyricsViewProtocol: BaseViewProtocol {
-    var lyricsTextView: UITextView { get set }
-    var activityIndicator: UIActivityIndicatorView { get set }
+    var lyricsTextView: UITextView { get }
+    var activityIndicator: UIActivityIndicatorView { get }
+    var starButton: StarButton { get }
 }
 
 class LyricsView: UIViewController, LyricsViewProtocol {
@@ -18,11 +19,6 @@ class LyricsView: UIViewController, LyricsViewProtocol {
     var presenter: PresenterType?
     
     //MARK: - Override functions
-    
-    override func viewDidAppear(_ animated: Bool) {
-        presenter?.searchLyrics()
-    }
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .black
@@ -33,6 +29,7 @@ class LyricsView: UIViewController, LyricsViewProtocol {
     //MARK: - View components
     private let backButton = CustomBackButton()
     private let titleLabel = CustomTitleLabel(label: "Lyrics")
+    let starButton = StarButton()
     
     private lazy var songTitleLabel: UILabel = {
         let label = UILabel()
@@ -50,7 +47,7 @@ class LyricsView: UIViewController, LyricsViewProtocol {
     }()
     lazy var lyricsTextView: UITextView = {
         let textView = UITextView()
-        textView.text = ""
+        textView.text = presenter?.lyrics
         textView.font = UIFont.systemFont(ofSize: 18)
         textView.layoutIfNeeded()
         textView.textColor = .white
@@ -58,7 +55,6 @@ class LyricsView: UIViewController, LyricsViewProtocol {
         textView.isScrollEnabled = true
         textView.backgroundColor = .clear
         textView.textAlignment = .left
-        textView.isHidden = true
         return textView
     }()
     lazy var activityIndicator: UIActivityIndicatorView = {
@@ -75,6 +71,8 @@ private extension LyricsView {
         addSubViews()
         
         backButton.addTarget(self, action: #selector(didTapBackButton), for: .touchUpInside)
+        starButton.isSelected = presenter?.isAdded ?? false
+        starButton.addTarget(self, action: #selector(didTapStarButton), for: .touchUpInside)
         
         setUpLayout()
     }
@@ -85,6 +83,7 @@ private extension LyricsView {
     func addSubViews() {
         view.addSubview(titleLabel)
         view.addSubview(backButton)
+        view.addSubview(starButton)
         view.addSubview(songTitleLabel)
         view.addSubview(songArtistLabel)
         view.addSubview(activityIndicator)
@@ -107,6 +106,9 @@ private extension LyricsView {
             titleLabel.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 16),
             titleLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             
+            starButton.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 20),
+            starButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
+            
             songTitleLabel.topAnchor.constraint(equalTo: backButton.bottomAnchor, constant: 40),
             songTitleLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
             songTitleLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
@@ -126,8 +128,20 @@ private extension LyricsView {
     }
 }
 
+//MARK: - Buttons
 private extension LyricsView {
     @objc func didTapBackButton() {
         navigationController?.popViewController(animated: true)
     }
+    
+    @objc func didTapStarButton() {
+        if starButton.isSelected {
+            starButton.isSelected = false
+            presenter?.deleteSong()
+        } else {
+            starButton.isSelected = true
+            presenter?.addSong()
+        }
+    }
 }
+

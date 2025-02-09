@@ -9,12 +9,13 @@ import Foundation
 
 protocol SearchViewPresenterProtocol: AnyObject {
     var songs: [FetchedSong] { get set }
+    
     func searchSongs(userInput: String?)
+    func searchLyrics(with songID: Int, completion: @escaping (String) -> Void)
 }
 
 class SearchViewPresenter: SearchViewPresenterProtocol {
     weak var view: (any SearchViewProtocol)?
-    var lyrics: String?
     
     init(view: any SearchViewProtocol) {
         self.view = view
@@ -40,6 +41,21 @@ class SearchViewPresenter: SearchViewPresenterProtocol {
                 
                 self.songs = songs ?? []
                 self.view?.tableView.reloadData()
+            }
+        }
+    }
+    
+    // Search lyrics for a paticular song
+    func searchLyrics(with songID: Int, completion: @escaping (String) -> Void) {
+        NetworkManager.shared.fetchLyrics(for: songID) { [weak self] fetchedLyrics in
+            guard self != nil else { return }
+            
+            DispatchQueue.main.async {
+                if let lyrics = fetchedLyrics?.lyrics, !lyrics.isEmpty {
+                    completion(lyrics)
+                } else {
+                    completion("No lyrics")
+                }
             }
         }
     }

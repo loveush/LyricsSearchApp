@@ -43,9 +43,9 @@ class Builder {
         }
     }
     
-    static func createLyricsView(song: FetchedSong) -> UIViewController {
+    static func createLyricsView(id: Int64, titile: String, artist: String, lyrics: String) -> UIViewController {
         return self.createView(viewType: LyricsView.self) { view in
-            LyricsViewPresenter(view: view, song: song) 
+            LyricsViewPresenter(view: view, id: id, title: titile, artist: artist, lyrics: lyrics)
         }
     }
 }

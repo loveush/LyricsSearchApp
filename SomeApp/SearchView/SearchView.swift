@@ -41,8 +41,9 @@ class SearchView: UIViewController, SearchViewProtocol {
         let table = UITableView(frame: .zero, style: .plain)
         table.backgroundColor = .black
         table.separatorColor = .white
-        table.register(UITableViewCell.self, forCellReuseIdentifier: "songCell")
+        table.register(CustomCell.self, forCellReuseIdentifier: "songCell")
         table.isUserInteractionEnabled = true
+        table.rowHeight = 65
         return table
     }()
     let activityIndicator: UIActivityIndicatorView = {
@@ -119,19 +120,30 @@ extension SearchView: UITableViewDataSource{
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "songCell", for: indexPath)
-        cell.textLabel?.text = presenter?.songs[indexPath.row].title
-        cell.backgroundColor = .black
-        cell.textLabel?.textColor = .white
+        let cell = tableView.dequeueReusableCell(withIdentifier: "songCell", for: indexPath) as! CustomCell
+        cell.title.text = presenter?.songs[indexPath.row].title
+        cell.artist.text = presenter?.songs[indexPath.row].artist
         return cell
     }
 }
 
 extension SearchView: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        if let chosenSong = presenter?.songs[indexPath.row] {
-            let lyricsViewController = Builder.createLyricsView(song: chosenSong)
-            navigationController?.pushViewController(lyricsViewController, animated: true)
+        guard let chosenSong = presenter?.songs[indexPath.row] else { return }
+
+        activityIndicator.startAnimating()
+
+        presenter?.searchLyrics(with: Int(chosenSong.id)) { [weak self] lyrics in
+            DispatchQueue.main.async {
+                guard let self = self else { return }
+                self.activityIndicator.stopAnimating() 
+
+                let lyricsViewController = Builder.createLyricsView(id: chosenSong.id,
+                                                                    titile: chosenSong.title,
+                                                                    artist: chosenSong.artist,
+                                                                    lyrics: lyrics)
+                self.navigationController?.pushViewController(lyricsViewController, animated: true)
+            }
         }
     }
 }
@@ -141,9 +153,7 @@ private extension SearchView {
     @objc func didTapSearchButton() {
         presenter?.searchSongs(userInput: searchField.text)
     }
-}
-
-private extension SearchView {
+    
     @objc func didTapBackButton() {
         self.navigationController?.popViewController(animated: true)
     }

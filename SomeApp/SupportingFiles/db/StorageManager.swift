@@ -21,6 +21,7 @@ final class StorageManager: NSObject {
         appDelegate.persistentContainer.viewContext
     }
     
+    // Add song to the db
     func addSong(id: Int64, title: String, artist: String, lyrics: String) {
         guard let songEntityDescription = NSEntityDescription.entity(forEntityName: "Song", in: context) else {
             print("Unable to create description")
@@ -35,6 +36,7 @@ final class StorageManager: NSObject {
         appDelegate.saveContext()
     }
     
+    // Fetch all songs
     func fetchSongs() -> [Song] {
         let fetchRequest = (NSFetchRequest<NSFetchRequestResult>(entityName: "Song"))
         do {
@@ -42,18 +44,20 @@ final class StorageManager: NSObject {
         }
     }
     
+    // Fetch one song by id
     func fetchSong(with id: Int64) -> Song? {
         let fetchRequest = (NSFetchRequest<NSFetchRequestResult>(entityName: "Song"))
-        fetchRequest.predicate = NSPredicate(format: "id == %@", id)
+        fetchRequest.predicate = NSPredicate(format: "id == %d", id)
         do {
             let songs =  try? context.fetch(fetchRequest) as? [Song]
             return songs?.first
         }
     }
     
+    // Delete one song by id
     func deleteSong(with id: Int64) {
         let fetchRequest = (NSFetchRequest<NSFetchRequestResult>(entityName: "Song"))
-        fetchRequest.predicate = NSPredicate(format: "id == %@", id)
+        fetchRequest.predicate = NSPredicate(format: "id == %d", id)
         do {
             guard let songs = try? context.fetch(fetchRequest) as? [Song],
                   let song = songs.first else { return }
