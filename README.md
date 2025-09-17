@@ -1,4 +1,4 @@
-*The app is currently under development.*
+
 # LyricsSearchApp
 LyricsSearch is an iOS application that allows users to search for song lyrics by entering an song title, artist name or anything else. The app fetches matching tracks and displays their lyrics upon selection.
 ## Tech Stack & Architecture

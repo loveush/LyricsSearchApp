@@ -114,6 +114,7 @@ extension HomeView: UITableViewDataSource {
 
 extension HomeView: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: false)
         guard let chosenSong = presenter?.songs[indexPath.row] else { return }
         
         let lyricsViewController = Builder.createLyricsView(id: chosenSong.id,
