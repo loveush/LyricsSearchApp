@@ -1,10 +1,3 @@
-//
-//  SceneDelegate.swift
-//  SomeApp
-//
-//  Created by Любовь Ушакова on 24.01.2025.
-//
-
 import UIKit
 
 enum WindowCase: String {

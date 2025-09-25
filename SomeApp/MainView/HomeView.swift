@@ -1,10 +1,3 @@
-//
-//  HomeView.swift
-//  SomeApp
-//
-//  Created by Любовь Ушакова on 24.01.2025.
-//
-
 import UIKit
 
 protocol HomeViewProtocol: BaseViewProtocol {

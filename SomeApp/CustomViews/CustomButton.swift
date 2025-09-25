@@ -1,10 +1,3 @@
-//
-//  CustomButton.swift
-//  SomeApp
-//
-//  Created by Любовь Ушакова on 26.01.2025.
-//
-
 import UIKit
 
 final class CustomButton: UIButton {

@@ -1,11 +1,3 @@
-//
-//  PreviewView.swift
-//  SomeApp
-//
-//  Created by Любовь Ушакова on 26.01.2025.
-//
-
-
 import UIKit
 
 class PreviewView: UIViewController {

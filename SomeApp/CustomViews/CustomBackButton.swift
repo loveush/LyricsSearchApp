@@ -1,11 +1,3 @@
-//
-//  CustomBackButton.swift
-//  SomeApp
-//
-//  Created by Любовь Ушакова on 27.01.2025.
-//
-
-
 import UIKit
 
 final class CustomBackButton: UIButton {

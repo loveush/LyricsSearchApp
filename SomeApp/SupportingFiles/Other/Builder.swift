@@ -1,11 +1,3 @@
-//
-//  BaseViewProtocol.swift
-//  SomeApp
-//
-//  Created by Любовь Ушакова on 26.01.2025.
-//
-
-
 import Foundation
 import UIKit
 

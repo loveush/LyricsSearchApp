@@ -1,10 +1,3 @@
-//
-//  StarButton.swift
-//  SomeApp
-//
-//  Created by Любовь Ушакова on 08.02.2025.
-//
-
 import UIKit
 
 class StarButton: UIButton {

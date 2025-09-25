@@ -1,10 +1,3 @@
-//
-//  NetworkManager.swift
-//  SomeApp
-//
-//  Created by Любовь Ушакова on 25.01.2025.
-//
-
 import Foundation
 
 class NetworkManager {

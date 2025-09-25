@@ -1,10 +1,3 @@
-//
-//  CustomCell.swift
-//  SomeApp
-//
-//  Created by Любовь Ушакова on 09.02.2025.
-//
-
 import UIKit
 
 class CustomCell: UITableViewCell {

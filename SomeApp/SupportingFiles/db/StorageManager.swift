@@ -1,10 +1,3 @@
-//
-//  StorageManager.swift
-//  SomeApp
-//
-//  Created by Любовь Ушакова on 07.02.2025.
-//
-
 import UIKit
 import CoreData
 
